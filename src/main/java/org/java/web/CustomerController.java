@@ -17,4 +17,18 @@ public class CustomerController {
     public String load(){
         return "/index";
     }
+
+    @RequestMapping("/personal")
+    public String personal(){
+        return "/personal";
+    }
+    @RequestMapping("/personalInfo")
+    public String personalInfo(){
+        return "/personalInfo";
+    }
+    @RequestMapping("/zhuti")
+    public String zhuti(){
+        return "/zhuti";
+    }
+
 }
