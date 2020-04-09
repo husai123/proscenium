@@ -254,8 +254,7 @@
                             <div class="background_img"></div>
                         </div>
                         <div class="user_name">
-                            <p><span class="name">化海天堂</span><a href="用户中心_密码管理.html">[修改密码]</a></p>
-                            <p>访问时间：2016-1-21 10:23</p>
+                            <p><span class="name" id="uname"></span><a href="用户中心_密码管理.html">[修改密码]</a></p>
                         </div>
                     </div>
                     <div class="sideMen">
@@ -410,7 +409,7 @@
                 var userinfo = value.data;//得到服务端返回的结果
 
                 var msg= "<b style='color: black;size: 6px'>欢迎您回来，"+userinfo.username+"<b/>";
-
+                $("#uname").html(userinfo.username);
                 //替换显示的内容
                 $("#loginDiv").html(msg);
 
