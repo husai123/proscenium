@@ -18,7 +18,59 @@
 <body>
 <div style="height:500px;width: 100%;background-color: white">
     <h1>个人信息</h1>
-
+    <form action="">
+        <table>
+            <tr>
+                <td>姓名<input id="uname" type="text"></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </form>
 </div>
+<script src="/js/axios.min.js"></script>
+
+<script>
+    // $.ajax({
+    //     url:"http://api.insurance.com/api/customer/byuserId?name="+name,
+    //     type:"GET",
+    //     dataType:"json",
+    //     success:function (data) {
+    //         alert(data);
+    //         $("#name").html(data.CUST_TRUENAME);
+    //     }
+    // })
+    $(function () {
+
+        //发出axios请求，传递cookie到授权中心
+
+        //设置允许axios携带cookie
+        axios.defaults.withCredentials = true;
+
+        axios.get("http://api.insurance.com/api/auth/verify")
+            .then(function (value) {
+                //alert("已登录");
+                //得到授权中心返回的载荷：userinfo,里面包含了id,username
+
+                var userinfo = value.data;//得到服务端返回的结果
+
+              //alert(userinfo.username)
+                axios.get("http://api.insurance.com/api/customer/byuserId/"+userinfo.username).then(function (data) {
+
+                   $("#uname").val(data.data.cust_truename);
+                })
+            })
+            .catch(function (reason) {
+            });
+
+    });
+</script>
 </body>
 </html>

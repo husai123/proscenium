@@ -23,7 +23,7 @@
             <div class="Collection"><em></em><a href="#">收藏我们</a></div>
             <div class="hd_top_manu clearfix">
                 <ul class="clearfix">
-                    <li th:if="${session.user==null}" class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！<a href="login.html" class="red">[请登录]</a> 新用户<a th:href="@{/forwardRegister}" class="red">[免费注册]</a></li>
+                    <li  id="loginDiv" th:if="${session.user==null}" class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！<a href="login.html" class="red">[请登录]</a> 新用户<a th:href="@{/forwardRegister}" class="red">[免费注册]</a></li>
                     <li th:if="${session.user!=null}" style="color: black;" class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！ [[${session.user.cust_truename}]]。<a th:href="@{/forwardPersonCenter}">[个人中心]</a><a th:href="@{/logout}">[退出]</a></li>
                     <li class="hd_menu_tit list_name" data-addclass="hd_menu_hover"><a href="javascript:" class="hd_menu">我的订单</a>
                         <div class="hd_menu_list" style="display: none;">
@@ -392,5 +392,35 @@
         </div>
     </div>
 </div>
+<script src="/js/axios.min.js"></script>
+<script>
+    $(function () {
+
+
+        //发出axios请求，传递cookie到授权中心
+
+        //设置允许axios携带cookie
+        axios.defaults.withCredentials = true;
+
+        axios.get("http://api.insurance.com/api/auth/verify")
+            .then(function (value) {
+                //alert("已登录");
+                //得到授权中心返回的载荷：userinfo,里面包含了id,username
+
+                var userinfo = value.data;//得到服务端返回的结果
+
+                var msg= "<b style='color: black;size: 6px'>欢迎您回来，"+userinfo.username+"<b/>";
+
+                //替换显示的内容
+                $("#loginDiv").html(msg);
+
+            })
+            .catch(function (reason) {
+                location.href="/init/login"
+            });
+
+    });
+</script>
+
 </body>
 </html>
