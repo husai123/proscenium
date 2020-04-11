@@ -30,5 +30,9 @@ public class CustomerController {
     public String zhuti(){
         return "/zhuti";
     }
+    @RequestMapping("/updatePwd")
+    public String updatePwd(){
+        return "/updatePwd";
+    }
 
 }

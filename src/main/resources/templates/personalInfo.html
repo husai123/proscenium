@@ -30,9 +30,8 @@
                 <td>邮箱：<input id="email" type="text"></td></tr>
            <tr ><td><input type="submit" value="提交"></td></tr>
         </table>
-
-
     </form>
+    <input type="hidden" id="sex1">
 <script src="/js/axios.min.js"></script>
 
 <script>
@@ -66,7 +65,7 @@
                     $("#bir").val(bir);
                     $("#phone").val(data.data.cust_phone);
                     // if (data.data.cust_sex==0){
-                        $("#sex").val(data.data.cust_sex);
+                        $("#sex1").val(data.data.cust_sex);
                     // }else {
                     //     $("#sex").val("女");
                     // }}
@@ -75,7 +74,13 @@
                 })
             })
             .catch(function (reason) {
+
             });
+        if($("#sex1").val()==0){
+            $("#sex").val("男");
+        }else {
+            $("#sex").val("女");
+        }
 
     });
 </script>

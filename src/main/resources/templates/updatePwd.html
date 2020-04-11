@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{/js/jquery.min.1.8.2.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.SuperSlide.2.1.1.js}" type="text/javascript"></script>
+    <script th:src="@{/js/common_js.js}" type="text/javascript"></script>
+    <script th:src="@{/js/footer.js}" type="text/javascript"></script>
+    <script th:src="@{/js/laydate/laydate.js}" type="text/javascript"></script>
+    <script th:src="@{/layer/layer.js}"></script>
+    <title>Title</title>
+</head>
+<body>
+<table  style="width:700px;height: 350px;background-color: white;align-content: center ">
+    <tr><td>输入用户名：<input type="text" id="uname"></td></tr>
+    <tr><td>请输入新密码：<input type="text" id="pwd"></td></tr>
+    <tr><td><input id="btn" type="submit" value="提交" ></td></tr>
+</table>
+
+<script src="/js/axios.min.js"></script>
+<script>
+
+
+$("#btn").click(function () {
+    var uname = $("#uname").val();
+    var pwd = $("#pwd").val();
+
+    $.ajax({
+        url:"http://api.insurance.com/api/customer/updatePwd/"+uname+"/"+pwd,
+        type:"put",
+        //data:{"uname":uname,"pwd":pwd},
+        success:function () {
+            alert("修改成功");
+        }
+
+    })
+})
+
+
+        // //发出axios请求，传递cookie到授权中心
+        //
+        // //设置允许axios携带cookie
+        // axios.defaults.withCredentials = true;
+        //
+        // axios.get("http://api.insurance.com/api/auth/verify")
+        //     .then(function (value) {
+        //         //alert("已登录");
+        //         //得到授权中心返回的载荷：userinfo,里面包含了id,username
+        //         var userinfo = value.data;//得到服务端返回的结果
+        //         var cid=userinfo.id;
+        //         $("#btn").click(function () {
+        //             axios.update("http://api.insurance.com/api/customer/updatePwd",{"pwd":$("#pwd1").val()}).then(function () {
+        //                 alert("修改成功")
+        //             })
+        //         })
+        //
+        //     })
+        //     .catch(function (reason) {
+        //     });
+
+</script>
+</body>
+</html>
