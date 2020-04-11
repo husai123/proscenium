@@ -75,7 +75,7 @@
 </div>
 <!--栏目-->
 <div class="header relative clearfix">
-  <div class="logo_style"><a th:href="@{/load}"><img src="images/logo.png" /><h6 class="pingtai_name">一站式汽车综合服务平台</h6></a></div>
+  <div class="logo_style"><a th:href="@{/load}"><img th:src="@{/images/logo.png}" /><h6 class="pingtai_name">一站式汽车综合服务平台</h6></a></div>
   <div class="middle_style">
    <div class="Search">
     <p><select name="" class="select_name"><option value="1">全部</option><option value="2">保险</option><option value="3">商城</option></select><input name="搜索框" type="text" class="text" placeholder="请输入关键字"><input name="" onclick="submit_btn()" type="submit" value="搜索" class="Search_btn"></p>
@@ -120,49 +120,49 @@
         <ul>
          <li>
          <a href="#">
-          <img src="images/products/2.jpg"  width="80px"/>
+          <img th:src="@{/images/products/2.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/3.jpg"  width="80px"/>
+          <img th:src="@{/images/products/3.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/4.jpg"  width="80px"/>
+          <img th:src="@{/images/products/4.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/5.jpg"  width="80px"/>
+          <img th:src="@{/images/products/5.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/6.jpg"  width="80px"/>
+          <img th:src="@{/images/products/6.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/7.jpg"  width="80px"/>
+          <img th:src="@{/images/products/7.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/8.jpg"  width="80px"/>
+          <img th:src="@{/images/products/8.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
           <li>
          <a href="#">
-          <img src="images/products/9.jpg"  width="80px"/>
+          <img th:src="@{/images/products/9.jpg}"  width="80px"/>
           <h4>汽车名称</h4>
          </a>
          </li>
@@ -170,8 +170,8 @@
        </div>
        </div>
        <div class="Recommended_Brand">
-       <a href="#" class="mb15"><img src="images/ad_1.jpg"  width="100%" height="198px"/></a>
-        <a href="#"><img src="images/ad_1.jpg"  width="100%" height="198px"/></a>
+       <a href="#" class="mb15"><img th:src="@{/images/ad_1.jpg}"  width="100%" height="198px"/></a>
+        <a href="#"><img th:src="@{/images/ad_1.jpg}"  width="100%" height="198px"/></a>
        </div>
        </div>   
       </li>
@@ -181,7 +181,7 @@
               <h3><a href="Insurance.html">太平洋保险</a></h3>
               <p class="jianjie ">又称太平洋保险，简称中国太保或太保，前身是中国太平洋保险公司，成立于1991年5月13日，是经中国人民银行批准设立的全国性股份制商业保险公司。中国太平洋保险以“做一家负责任的保险公司”为使命，以“诚信天下，稳健一生，追求卓越”为企业核心价值观，以“推动和实现可持续的价值增长”为经营理念，不断为客户、股东、员工、社会和利益相关者创造价值，为社会和谐做出贡献。</p>
              <div class="clauseBlock">
-            <img src="images/map01.jpg" width="100%" alt="">
+            <img th:src="@{/images/map01.jpg}" width="100%" alt="">
             <ul class="clauseItemList">
             	<li>? 先赔付，再修车</li>
                 <li>? 万元以下赔付，3天到账</li>
@@ -189,7 +189,7 @@
             </ul>
         </div>
         <div class="clauseBlock">
-            <img src="images/map02.jpg" width="100%" alt="">
+            <img th:src="@{/images/map02.jpg}" width="100%" alt="">
             <ul class="clauseItemList">
             	<li>? 7X24小时</li>
                 <li>? 百公里免费非事故</li>
@@ -197,7 +197,7 @@
             </ul>
         </div>
         <div class="clauseBlock">
-            <img src="images/map03.jpg" width="100%" alt="">
+            <img th:src="@{/images/map03.jpg}" width="100%" alt="">
             <ul class="clauseItemList">
             	<li>? 人伤案件安心理赔</li>
                 <li>? 上门代收理赔资料</li>
@@ -417,8 +417,8 @@
             <li>
             	<label class="label_nmae"><i class="red_color">*</i>是否过户：</label>
             	<span class="current_info ">
-            		<input name="car_transfer" type="checkbox" id="checkbox-11-2" checked=""  class="checkbox_none"/>
-            		<label for="checkbox-11-2"></label>
+            		<input name="car_transfer" value="0" type="checkbox" id="checkbox-11-2" checked=""  class="checkbox_none"/>
+            		<label  for="checkbox-11-2"></label>
             	</span>
             </li>    
           </ul>
@@ -490,28 +490,28 @@
  <div class="footerbox">
   <ul class="clearfix">
    <li class="clearfix ensure_name">
-    <div class="left_icon"><img src="images/icon_img_17.png" /></div>
+    <div class="left_icon"><img th:src="@{/images/icon_img_17.png}" /></div>
     <div class="right_content">
      <h3>全程购物安全保障</h3>
      <h4>用户消费，资金安全</h4>
     </div>
    </li>
     <li class="clearfix ensure_name">
-    <div class="left_icon"><img src="images/icon_img_07.png" /></div>
+    <div class="left_icon"><img th:src="@{/images/icon_img_07.png}" /></div>
     <div class="right_content">
      <h3>专业汽车销售平台</h3>
      <h4>实体汽车销售企业</h4>
     </div>
    </li>
     <li class="clearfix ensure_name">
-    <div class="left_icon"><img src="images/icon_img_09.png" /></div>
+    <div class="left_icon"><img th:src="@{/images/icon_img_09.png}" /></div>
     <div class="right_content">
      <h3>获得相关认证授权</h3>
      <h4>保险,汽车销售许可</h4>
     </div>
    </li>
     <li class="clearfix ensure_name">
-    <div class="left_icon"><img src="images/icon_img_11.png" /></div>
+    <div class="left_icon"><img th:src="@{/images/icon_img_11.png}" /></div>
     <div class="right_content">
      <h3>24小时服务热线</h3>
      <h4>有问题实时沟通联系</h4>
@@ -547,10 +547,10 @@
    </dl>
   </div>
   <div class="weixin_style">
-   <div class="sys_style"><img src="images/waixin.png"  width="100px"/><h5>微信公众号</h5></div>
-    <div class="sys_style"><img src="images/waixin.png"  width="100px"/><h5>微信公众号</h5></div>
+   <div class="sys_style"><img th:src="@{/images/waixin.png}"  width="100px"/><h5>微信公众号</h5></div>
+    <div class="sys_style"><img th:src="@{/images/waixin.png}"  width="100px"/><h5>微信公众号</h5></div>
   </div> 
-  <div class="footer_phone"><img src="images/phone.png" /></div> 
+  <div class="footer_phone"><img th:src="@{/images/phone.png}" /></div>
  </div>
  <div class="Copyright">
  <div class="footerbox">
@@ -569,7 +569,7 @@
       <div class="ServiceBox">
         <div class="bjfff"></div>
         	        		        <dl onclick="javascript:;">
-		          <dt><img src="images/Service1.png" width="70px"></dt>
+		          <dt><img th:src="@{/images/Service1.png}" width="70px"></dt>
 		          <dd> <strong>QQ客服1</strong>
 		            <p class="p1">9:00-22:00</p>
 		            <p class="p2"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=123456&amp;site=DGG三端同步&amp;menu=yes">点击交谈</a></p>
@@ -581,7 +581,7 @@
 			<span class="fixeBoxSpan"></span> <strong>微信</strong>
            
 			<div class="cartBox"> <div class="bjfff"></div>
-       		<img src="images/waixin.png"  width="140px"/> <h4 style=" margin:10px 0px; color:#666; font-weight:normal">汽车销售微信公众号</h4></div></li>
+       		<img th:src="@{/images/waixin.png}"  width="140px"/> <h4 style=" margin:10px 0px; color:#666; font-weight:normal">汽车销售微信公众号</h4></div></li>
     <li class="fixeBoxLi Home"> <a href="index.html"> <span class="fixeBoxSpan"></span> <strong>返回首页</strong> </a> </li>
     <li class="fixeBoxLi BackToTop"> <span class="fixeBoxSpan"></span> <strong>返回顶部</strong> </li>
   </ul>
@@ -592,47 +592,54 @@
    <label class="label_nmae">验证码:</label>
    <span class="Verification_info"><input name="" type="text"  class="add_Verification" id="Verification"/><em class="Verification_img" id="Verification_img"></em></span></div>
 </div>-->
-<!--车型选择-->
-<div class="Models_selection_style none" id="Models_selection_style">
- <div class="Models_content">
-   <div class="Models_title"><label class="label_name">车款名称：</label><span class="name">上海通用别克</span></div>
-   <table cellpadding="0" cellspacing="0" width="100%">
-   <thead>
-    <tr class="title_name">
-     <th>车系</th>
-     <th>档位</th>
-     <th>排量</th>
-     <th>产品型号</th>
-     <th>参考价</th>
-    </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td>硬朗</td>
-      <td>1.8L</td>
-      <td>手自一体</td>
-      <td>广汽传祺 传祺GS4 2017款 235T 自动两驱豪华智联版</td>
-      <td>13.45万</td>
-     </tr>
-      <tr>
-      <td>硬朗</td>
-      <td>1.8L</td>
-      <td>手自一体</td>
-      <td>广汽传祺 传祺GS4 2017款 235T 自动两驱豪华智联版</td>
-      <td>13.45万</td>
-     </tr>
-    </tbody>
-   </table>
-   <div class="notice_style">
-     <p>如你的车辆不再选择范围之内,请致电<b>400-234-1234</b></p>
-     <p>车辆参考价仅为帮助你选择车型使用，并不表示你车的时间赔偿价格</p>
-   </div>
- </div>
-</div>
+<!--&lt;!&ndash;车型选择&ndash;&gt;-->
+<!--<div class="Models_selection_style none" id="Models_selection_style">-->
+ <!--<div class="Models_content">-->
+   <!--<div class="Models_title"><label class="label_name">车款名称：</label><span class="name">上海通用别克</span></div>-->
+   <!--<table cellpadding="0" cellspacing="0" width="100%">-->
+   <!--<thead>-->
+    <!--<tr class="title_name">-->
+     <!--<th>车系</th>-->
+     <!--<th>档位</th>-->
+     <!--<th>排量</th>-->
+     <!--<th>产品型号</th>-->
+     <!--<th>参考价</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+     <!--<tr>-->
+      <!--<td>硬朗</td>-->
+      <!--<td>1.8L</td>-->
+      <!--<td>手自一体</td>-->
+      <!--<td>广汽传祺 传祺GS4 2017款 235T 自动两驱豪华智联版</td>-->
+      <!--<td>13.45万</td>-->
+     <!--</tr>-->
+      <!--<tr>-->
+      <!--<td>硬朗</td>-->
+      <!--<td>1.8L</td>-->
+      <!--<td>手自一体</td>-->
+      <!--<td>广汽传祺 传祺GS4 2017款 235T 自动两驱豪华智联版</td>-->
+      <!--<td>13.45万</td>-->
+     <!--</tr>-->
+    <!--</tbody>-->
+   <!--</table>-->
+   <!--<div class="notice_style">-->
+     <!--<p>如你的车辆不再选择范围之内,请致电<b>400-234-1234</b></p>-->
+     <!--<p>车辆参考价仅为帮助你选择车型使用，并不表示你车的时间赔偿价格</p>-->
+   <!--</div>-->
+ <!--</div>-->
+<!--</div>-->
 <!---->
+<input id="aaa" onclick="zxc()" style="width: 100px" />
 </body>
 </html>
 <script>
+
+    function zxc(){
+        alert($("[name=car_transfer]").is(":checked"))
+        console.log($("#frm").serialize())
+    }
+
    laydate({
 			elem: '#test1',
 			format: 'YYYY/MM/DD', // 分隔符可以任意定义，该例子表示只显示年月
