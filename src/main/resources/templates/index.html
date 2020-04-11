@@ -426,7 +426,7 @@
             <ul class="Insurance_list clearfix">
                 <li class="Insurance_name">
                     <div class="Insurance_style">
-                        <a href="Insurance.html">
+                        <a th:href="@{/init/insurance_offer_1}">
                             <div class="Insurance_logo"><img src="images/logo_zgrm.png" /></div>
                             <div class="Sales_volume">
                                 <p><i class="icon_dui"></i>简单的“极速”理赔</p>
@@ -440,7 +440,7 @@
                 </li>
                 <li class="Insurance_name">
                     <div class="Insurance_style">
-                        <a href="Insurance.html">
+                        <a th:href="@{/init/insurance_offer_1}">
                             <div class="Insurance_logo"><img src="images/logo_zgpa.png" /></div>
                             <div class="Sales_volume">
                                 <p><i class="icon_dui"></i>简单的“极速”理赔</p>
@@ -454,7 +454,7 @@
                 </li>
                 <li class="Insurance_name">
                     <div class="Insurance_style">
-                        <a href="Insurance.html">
+                        <a th:href="@{/init/insurance_offer_1}">
                             <div class="Insurance_logo"><img src="images/logo_tpt.png" /></div>
                             <div class="Sales_volume"> <p><i class="icon_dui"></i>简单的“极速”理赔</p>
                                 <p><i class="icon_dui"></i>免费救援</p>
@@ -602,9 +602,9 @@
     <!--右侧菜单栏购物车样式-->
     <div class="fixedBox">
         <ul class="fixedBoxList">
-            <li class="fixeBoxLi cart_bd" style="display:block;" >
-                <p class="good_cart">2</p>
-                <span class="fixeBoxSpan"></span><a href="baoxian.html"> <strong>购物车</strong></a></li>
+            <!--<li class="fixeBoxLi cart_bd" style="display:block;" >-->
+                <!--<p class="good_cart">2</p>-->
+                <!--<span class="fixeBoxSpan"></span><a href="baoxian.html"> <strong>购物车</strong></a></li>-->
             <li class="fixeBoxLi Service startWork"> <span class="fixeBoxSpan"></span> <strong>在线客服</strong>
                 <div class="ServiceBox">
                     <div class="bjfff"></div>
@@ -622,7 +622,7 @@
 
                 <div class="cartBox"> <div class="bjfff"></div>
                     <img src="images/waixin.png"  width="140px"/> <h4 style=" margin:10px 0px; color:#666; font-weight:normal">汽车销售微信公众号</h4></div></li>
-            <li class="fixeBoxLi Home"> <a href="index.html"> <span class="fixeBoxSpan"></span> <strong>返回首页</strong> </a> </li>
+            <li class="fixeBoxLi Home"> <a th:href="@{/load}"> <span class="fixeBoxSpan"></span> <strong>返回首页</strong> </a> </li>
             <li class="fixeBoxLi BackToTop"> <span class="fixeBoxSpan"></span> <strong>返回顶部</strong> </li>
         </ul>
     </div>
