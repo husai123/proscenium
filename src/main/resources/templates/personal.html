@@ -67,7 +67,7 @@
                 <p class="Words">热搜关键字：<a href="../anonymous/搜索.html">大众</a><a href="#">宝马</a><a href="#">太平洋保险</a><a href="#">福特</a><a href="#">本田</a><a href="#">哈佛</a></p>
             </div>
             <ul class="menu_list">
-                <li><a href="../anonymous/index.html" class="menu_name">首页</a></li>
+                <li><a th:href="@{/load}" class="menu_name">首页</a></li>
                 <li><a href="../anonymous/cars_list.html" class="menu_name">购车 <em class="Arrows_icon"></em></a>
                     <div class="Insurance_class">
                         <div class="Condition_selection_style">
@@ -287,7 +287,7 @@
                             <dd>
                                 <ul>
                                     <li> <a th:href="@{/personalInfo}" target="right">个人信息</a></li>
-                                    <li><a href="用户中心_密码管理.html">密码管理</a></li>
+                                    <li><a th:href="@{/updatePwd}">密码管理</a></li>
                                     <li> <a href="用户中心_头像管理.html">头像管理</a></li>
 
                                 </ul>

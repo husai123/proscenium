@@ -21,17 +21,18 @@
     <form action="">
         <table  style="width:700px;height: 350px;background-color: white;align-content: center ">
             <tr >
-               <td>姓名：<input id="uname" type="text"></td>
+               <td>姓名：<input id="uname" type="text" readonly="readonly"></td>
             </tr >
             <tr ><td >出生日期：<input id="bir" type="text"></td>
                 <td>性别：<input id="sex" type="text"></td></tr>
 
             <tr ><td>电话号码：<input id="phone" type="text"></td>
                 <td>邮箱：<input id="email" type="text"></td></tr>
-           <tr ><td><input type="submit" value="提交"></td></tr>
+           <tr ><td><input id="btn" type="submit" value="提交"></td></tr>
         </table>
     </form>
     <input type="hidden" id="sex1">
+    <input type="hidden" id="id">
 <script src="/js/axios.min.js"></script>
 
 <script>
@@ -57,7 +58,7 @@
                 //得到授权中心返回的载荷：userinfo,里面包含了id,username
 
                 var userinfo = value.data;//得到服务端返回的结果
-
+                $("#id").val(userinfo.id);
               //alert(userinfo.username)
                 axios.get("http://api.insurance.com/api/customer/byuserId/"+userinfo.username).then(function (data) {
                     var bir = data.data.cust_birthday;
@@ -81,8 +82,25 @@
         }else {
             $("#sex").val("女");
         }
-
     });
+    $("#btn").click(function () {
+        var email=$("#email").val();
+        var uname=$("#uname").val();
+        var phone=$("#phone").val();
+       // SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+       // var bir=SimpleDateFormat.DateTimeFormat($("#bir").val(),"yyyy-MM-dd");
+        //alert(bir)
+        $.ajax({
+            url:"http://api.insurance.com/api/customer/updateInfo/"+uname+"/"+phone+"/"+email,
+            type:"put",
+            success:function () {
+                alert(111111);
+                parent.location.href="/init/login"
+            }
+
+        })
+    })
+
 </script>
 </body>
 </html>
