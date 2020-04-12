@@ -31,7 +31,7 @@ public class CustomerController {
 //        System.out.println(car_transfer);
 
         if (map.get("car_transfer")==null){
-            map.put("car_transfer",1);
+            map.put("car_transfer",0);
         }
 
         System.out.println(map);
@@ -51,10 +51,6 @@ public class CustomerController {
     @RequestMapping("/zhuti")
     public String zhuti(){
         return "/zhuti";
-    }
-    @RequestMapping("/updatePwd")
-    public String updatePwd(){
-        return "/updatePwd";
     }
 
 }
