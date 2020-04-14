@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,6 +6,7 @@
 <link th:href="@{/css/common.css}" rel="stylesheet"  type="text/css" />
 <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
 <Link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/pageMe.css}">
 <script th:src="@{/js/jquery.min.1.8.2.js}" type="text/javascript"></script>
 <script th:src="@{/js/jquery.SuperSlide.2.1.1.js}" type="text/javascript"></script>
 <script th:src="@{/js/common_js.js}" type="text/javascript"></script>
@@ -12,9 +14,8 @@
 <script th:src="@{/js/cityselect.js}" type="text/javascript"></script>
 <script th:src="@{/js/layer/layer.js}" type="text/javascript"></script>
 <script th:src="@{/js/laydate/laydate.js}" type="text/javascript"></script>
-<script th:src="@{/js/axios.min.js}"></script>
-<script th:src="@{/js/layer/layer.js}" type="text/javascript"></script>
-<title>保单详细</title>
+<script th:src="@{/js/pageMe.js}"></script>
+<title>保险订单</title>
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                 <a th:href="@{/init/registered}" class="red">[免费注册]</a>
             </li>
             <li class="hd_menu_tit" data-addclass="hd_menu_hover" id="geren" style="display: none">
-                <a href="#">个人中心</a>
+                <a th:href="@{/personal}">个人中心</a>
             </li>
             <li class="hd_menu_tit list_name" data-addclass="hd_menu_hover" id="dingdan" style="display: none;">
                 <a href="javascript:" class="hd_menu">我的订单</a>
@@ -73,16 +74,15 @@
 	</div>
   </div>
 </div>
-    <!--栏目-->
     <div class="header relative clearfix">
-        <div class="logo_style"><a th:href="@{/load}"><img th:src="@{/images/logo.png}" /><h6 class="pingtai_name">一站式汽车综合服务平台</h6></a></div>
+        <div class="logo_style"><a th:href="@{/load}"><img src="images/logo.png" /><h6 class="pingtai_name">一站式汽车综合服务平台</h6></a></div>
         <div class="middle_style">
             <div class="Search">
                 <p><select name="" class="select_name"><option value="1">全部</option><option value="2">保险</option><option value="3">商城</option></select><input name="搜索框" type="text" class="text" placeholder="请输入关键字"><input name="" onclick="submit_btn()" type="submit" value="搜索" class="Search_btn"></p>
                 <p class="Words">热搜关键字：<a href="搜索.html">大众</a><a href="#">宝马</a><a href="#">太平洋保险</a><a href="#">福特</a><a href="#">本田</a><a href="#">哈佛</a></p>
             </div>
             <ul class="menu_list">
-                <li><a href="index.html" class="menu_name">首页</a></li>
+                <li><a th:href="@{/init/index}" class="menu_name">首页</a></li>
                 <li><a href="cars_list.html" class="menu_name">购车 <em class="Arrows_icon"></em></a>
                     <div class="Insurance_class">
                         <div class="Condition_selection_style">
@@ -246,113 +246,84 @@
                 <li><a href="知识.html" class="menu_name">知识</a></li>
             </ul>
 
-        </div>
-        <div class="contacttop_style"><img th:src="@{/images/phone.png}" />
-         <!--<div class="header_mycount">-->
-          <!--<a href="购物车.html" class="cart_style"><i class="icon_cart"></i>我的购物车<i class="ci-count">0</i></a>-->
-          <!--<a href="用户中心.html" class="user_header_style">-->
-            <!--<i class="icon_user"></i>我的汽车销售-->
-          <!--</a>-->
-         <!--</div>-->
-        </div>
+        </div><div class="contacttop_style"><img src="images/phone.png" />
+        <!--<div class="header_mycount">
+         <a href="购物车.html" class="cart_style"><i class="icon_cart"></i>我的购物车<i class="ci-count">0</i></a>
+         <a href="用户中心.html" class="user_header_style">
+           <i class="icon_user"></i>我的汽车销售
+         </a>
+        </div>-->
+    </div>
     </div>
 </div>
-<!--保单详情-->
-<form action="" id="frm">
-    <input type="hidden" name="cust_id" />
-<div class="Insurance_content pages_style">
-<div class="page">
-   <div class="Details_Add_offer">
-     <div class="title_name">详细保单（信息完善）</div>
-     <div class="Policy_hints">本保单询价只支持人工询价，请将下列保单的信息完善，请认真的填写你需要的保单价格，填写完后，提交后，我们将在一个工作日内（24小时）将你提供的保单价格发送于你。</div>
-     <div class="Details_Add_style">
-      <div class="car_name">
-       <span class="chezhu">[[${userInsurance.insured_name}]]</span>
-       <div class="car_cpxi"><h3>[[${userInsurance.car_number}]]</h3><h4>[[${userInsurance.brand_name}]]</h4></div></div>
-      <ul class="clearfix bianji_info">
-       <span class="title_names">交强险</span>
-       <li>
-           <label class="label_name">是否购买交强险：</label>
-           <span class="Policy_current">
-               <label class="inline">
-                   <input id="jiaoqiangxian_tou" name="is_pay_jiaoqiangxian" value="1" checked type="radio" class="ace">
-                   <span class="lbl">是</span>
-               </label>
-               <label class="inline">
-                   <input name="is_pay_jiaoqiangxian" value="0" type="radio" class="ace">
-                   <span class="lbl">否</span>
-               </label>
-           </span>
-       </li>
-         <li>
-             <label class="label_name">起保时间：</label>
-             <span class="Policy_current">
-                 <input name="jiaoqiangxian_start_date" type="text" data-name="注册日期"  class="laydate-icon text_add" id="test1">
-             </span>
-         </li>
-         <li>
-             <label class="label_name">车船税：</label>
-             <span class="Policy_current">
-                 <select class="text_add select_style" name="is_chechuanshui">
-                   <option value="1">缴纳</option>
-                   <option value="0">不缴纳</option>
-                 </select>
-             </span>
-         </li>
-      </ul>
-      <ul class="clearfix bianji_info" id="insurance">
-        <span class="title_names">商业险</span>
-          <li>
-          	<label class="label_name">是否购买商业险：</label>
-          	<span class="Policy_current">     
-			       <label class="inline">
-			       	<input id="shangyexian_tou" name="is_pay_shangyexian" value="1" checked type="radio" class="ace">
-			       	<span class="lbl">是</span>
-			       </label>
-			       <label class="inline">
-			       	<input name="is_pay_shangyexian" value="0" type="radio" class="ace">
-			       	<span class="lbl">否</span>
-			       </label>
-         		</span>
-          </li>
-         <li>
-             <label class="label_name">起保时间：</label>
-             <span class="Policy_current">
-                 <input name="shangyexian_start_date" type="text" data-name="注册日期"  class="laydate-icon text_add" id="test2">
-             </span>
-         </li>
-         <li class="Basic_Policy clearfix"> 
-          <span class="title_names">基本险</span>
-         </li>
+<!---->
+<div class="Insurance_content  pages_style">
+  <div class="page clearfix">
+  <div class="order_title">询价订单</div>
+     <div class="user_Insurance_order_style Plate_info">       
+       <div class="padding20">
+     <div class="order_content ">
+      <table class="Inquiry_order">
+         <thead>
+          <tr>
+           <th width="300px">车辆信息</th>
+           <th width="300px">询价内容</th>
+           <th width="200px">状态</th>
+           <th width="200px">报价</th>
+           <th width="150px">操作</th>
+          </tr>
+         </thead>
 
-            <li id="typeOfInsurance">
-            	<label class="label_name">
-                    <span id="insurance_name">第三方责任险</span>：
-            		<span class="prompt">
-            		<i class="fa fa-question-circle"></i>
-            		<span class="prompt_content" id="insurance_introduce">车辆损失险是指保险车辆遭受保险责任范围内的自然灾害(不包括地震)或意外事故，造成保险车辆本身损失。作为多数私家车车险中保费最高的一个险种，许多车主对车辆损失险怎么计算不甚明了。 </span>
-            		</span>
-            	</label>
-            	<span class="Policy_current">
-            		<select class="text_add select_style" name="insure" form="form1">
-				           <option id="toubao">投保</option>
-				           <option value="0">不投保</option>
-           			</select>
-           			<label class="inline">
-           				<input type="checkbox" name="deductible" class="ace" checked="checked" form="form1">
-           				<span class="lbl">不计免赔</span>
-           			</label>
-           		</span>
-            </li>  
-            
-      </ul>
-      <!---->
-      <div class="bx_Inquiry_style"><a href="javascript:ovid()" class="btn btn_submit_Policy" onclick="Inquiry_submit_Policy()">生成保单</a></div>
+         <tbody id="mytbody">
+
+         </tbody>
+
+          <tbody id="tbody" style="display: none">
+              <tr class="order_number">
+                  <td colspan="5">
+                      <span class="Numbering">订单号：</span>
+                      <span id="order_id">WE123456789098 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                      <span class="time">询价时间：
+                       <sapn id="inquiry_time">2017-2-12 11:12</sapn>
+                   </span>
+                  </td>
+              </tr>
+              <tr class="Inquiry_order_content">
+                  <td>
+                      <h4 id="car_number">苏A AS123</h4>
+                      <h5 id="car_truename">车主：张霞</h5>
+                  </td>
+                  <td id="insurances">保险全显</td>
+                  <td class="td_status" id="status">等待报价</td>
+                  <td class="bx_price" id="price">暂无</td>
+                  <td class="td_manage">
+                      <a href="" class="btn detailed_btn mb15" id="view_details">查看详细</a>
+                      <a href="javascript:" class="btn btn_huise" onclick="" id="resubmission">重新提交</a>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
      </div>
-   </div>
-</div>
-</div>
-</form>
+     <!--<div class="Paging">
+    <div class="Pagination">
+    	 <a href="#">首页</a>
+     	 <a href="#" class="pn-prev disabled">&lt;上一页</a>
+			 <a href="#" class="on">1</a>
+			 <a href="#">2</a>
+			 <a href="#">3</a>
+			 <a href="#">4</a>
+			 <a href="#">下一页&gt;</a>
+			 <a href="#">尾页</a>	
+     </div>
+    </div>-->
+    <!--显示分页的控件-->
+    <div id="page" class="page_div" align="center"></div>
+
+
+  </div>
+     </div>
+  </div>
+ </div>
 <!--优势-->
 <div class="Advantage_style">
     <div class="footerbox">
@@ -426,358 +397,166 @@
         </div>
     </div>
 </div>
-<!--提交查询结果-->
-<div class="Query_results_style none" id="Query_results_style">
- <div class="Query_results margin">
-   <div class="prompt clearfix">你申请的<b>太平洋保险</b>的询价保单已生成</div>
-   <div class="clearfix">
-    <div class="order_number">订单号：<span id="order_id"></span></div>
-    <ul class="Query_results_content clearfix">
-     <li><label class="label_name">投保城市：</label><span class="jt_content">[[${userInsurance.toubaochengshi}]]</span></li>
-     <li><label class="label_name">保险公司：</label><span class="jt_content">太平洋保险</span></li>
-     <li><label class="label_name">车牌号：</label><span class="jt_content">[[${userInsurance.car_number}]]</span></li>
-    </ul>
-    <div class="Query_results_title">车主信息</div>
-    <ul class="Query_results_content clearfix">
-     <li class="width20"><label class="label_name">车主姓名：</label><span class="jt_content">[[${userInsurance.insured_name}]]</span></li>
-     <li><label class="label_name">手机号：</label><span class="jt_content">[[${userInsurance.insured_phone}]]</span></li>
-     <li><label class="label_name">身份证：</label><span class="jt_content">[[${userInsurance.insured_identity}]]</span></li>
-     <li><label class="label_name">邮箱：</label><span class="jt_content">[[${userInsurance.insured_email}]]</span></li>
-    </ul>
-     <div class="Query_results_title">车辆信息</div>
-     <ul class="Query_results_content clearfix">
-     <li class="width100"><label class="label_name">品牌型号：</label><span class="jt_content">[[${userInsurance.brand_name}]]</span></li>
-     <li><label class="label_name">投保城市：</label><span class="jt_content">[[${userInsurance.toubaochengshi}]]</span></li>
-     <li><label class="label_name">保险公司：</label><span class="jt_content">太平洋保险</span></li>
-     <li><label class="label_name">车牌号：</label><span class="jt_content">[[${userInsurance.car_number}]]</span></li>
-     <li><label class="label_name">车辆所属：</label><span class="jt_content">个人</span></li>
-     <li><label class="label_name">注册登记：</label><span class="jt_content">[[${userInsurance.car_first_register_date}]]</span></li>
-     <li><label class="label_name">车辆识别码：</label><span class="jt_content">[[${userInsurance.car_vin}]]</span></li>
-     <li><label class="label_name">发动机号：</label><span class="jt_content">[[${userInsurance.car_engine_number}]]</span></li>
-     <li><label class="label_name">车辆类型：</label><span class="jt_content">[[${userInsurance.car_type}]]</span></li>
-     <li><label class="label_name">燃油类型：</label><span class="jt_content">[[${userInsurance.fuel_type}]]</span></li>
-     <li><label class="label_name">车船税：</label><span class="jt_content">正常缴纳</span></li>
-     <li><label class="label_name">是否过户：</label>
-         <span class="jt_content" th:value="${userInsurance.car_transfer==0}" >是</span>
-         <span class="jt_content" th:if="${userInsurance.car_transfer!=0}" >否</span>
-     </li>
-    </ul>
-    <div class="Query_results_title">投保信息（报价详细）</div>
-      <ul class="Insured_inquiry_info clearfix">
-          <li>
-              <label class="label_name">交强险：</label>
-              <div class="jt_content">
-                  <span id="is_pay_jiaoqiangxian">投保</span>
-                  <span class="time">生效时间：<span id="jiaoqiangxian_start_date">2017-2-11</span></span>
-                  <span class="cost">保费：等待统计</span>
-              </div>
-          </li>
-          <li>
-              <label class="label_name">车船税：</label>
-              <div class="jt_content" id="is_chechuanshui">正常缴纳 </div>
-          </li>
-          <li class="comm_insurance">
-              <div class="clearfix">
-                  <label class="label_name">商业险：</label>
-                  <div class="jt_content">
-                      <span id="is_pay_shangyexian">投保</span>
-                      <span class="time">生效时间：<span id="shangyexian_start_date">2017-2-11</span></span>
-                      <span class="cost">保费：等待统计</span>
-                  </div>
-              </div>
-          <table cellpadding="0" cellspacing="0" class="insurance_style" width="100%">
-          <thead>
-           <tr>
-            <th  width="180px">保险名称</th>
-            <th>投保金额</th>
-            <th width="100px">保险费用</th>
-           </tr>
-          </thead>
-          <tbody id="insurances">
-           <tr id="insurancenames">
-            <td id="insurancename">第三方责任险</td>
-            <td>足额投保</td>
-            <td>待统计</td>
-           </tr>
-          </tbody>
-        </table>
-        <div class="clearfix Non-deductible marginsx">
-           <label class="label_name">不计免赔：</label>
-             <div class="jt_content" id="deductibles">
-              <span class="name" id="deductiblename">车辆损失险</span>
-            </div>
-            <span class="cost">保费：等待统计</span> 
-            </div>
-         </li>
-       
-      </ul>
-    </div>
- </div>
-</div>
-
 </body>
 </html>
-<script th:inline="javascript" type="text/javascript">
-/*****时间******/
- laydate({
-  elem: '#test1',
-  format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月
-  festival: true, //显示节日
-  istime: true,
-  istoday: false,
-  max: laydate.now(), //设定最小日期为当前日期
- });
-  laydate({
-  elem: '#test2',
-  format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月
-  festival: true, //显示节日
-  istime: true,
-  istoday: false,
-  max: laydate.now(), //设定最小日期为当前日期
- });
+<script>
+
+    $(function () {
+
+        var cust_id="";
+
+        //发出axios请求，传递cookie到授权中心
+        //设置允许axios携带cookie
+        axios.defaults.withCredentials = true;
+
+        axios.get("http://api.insurance.com/api/auth/verify")
+            .then(function (value) {
+                //alert("已登录");
+                //得到授权中心返回的载荷：userinfo,里面包含了id,username
+
+                var userinfo = value.data;//得到服务端返回的结果
+
+                var msg= "<span style='color: black'>欢迎您回来，"+userinfo.username+"</span>";
+
+                cust_id=userinfo.id;//将客户编号存储到标签中
+
+                //替换显示的内容
+                $("#loginDiv").html(msg);
+                $("#geren").css("display","inline-block");
+                $("#dingdan").css("display","inline-block");
+            })
+            .catch(function (reason) {
+                $("#geren").css("display","none");
+                $("#dingdan").css("display","none");
+                // location.href="/init/login";
+            });
 
 
-var insurList1=[];
-
-
-$(function () {
-    //发出axios请求，传递cookie到授权中心
-    //设置允许axios携带cookie
-    axios.defaults.withCredentials = true;
-
-    axios.get("http://api.insurance.com/api/auth/verify")
-        .then(function (value) {
-            //alert("已登录");
-            //得到授权中心返回的载荷：userinfo,里面包含了id,username
-
-            var userinfo = value.data;//得到服务端返回的结果
-
-            var msg= "<span style='color: black'>欢迎您回来，"+userinfo.username+"</span>";
-
-            $("[name=cust_id]").val(userinfo.id);//将客户编号存储到标签中
-
-            //替换显示的内容
-            $("#loginDiv").html(msg);
-            $("#geren").css("display","inline-block");
-            $("#dingdan").css("display","inline-block");
-
-        })
-        .catch(function (reason) {
-            $("#geren").css("display","none");
-            $("#dingdan").css("display","none");
-            // location.href="/init/login";
+        //一加载，就发出跨域请求，获得后台微服务提供的数据
+        $.ajax({
+            url: "http://api.insurance.com/api/order/insuanceOrder/inquiryList/cust_id",
+            type: "get",
+            data: {"page": 1, "limit": 3},
+            dataType: "json",
+            success: shw  //回调函数的名称
         });
 
-    //加载保险
-    $.ajax({
-        url:"http://api.insurance.com/api/order/type_of_insurance/query",
-        type:"get",
-        dataType:"json",
-        success:function (value) {
-            var dd="";
-            $.each(value.data,function (index,d) {
 
-                insurList1.push(new Insurance_xinxi(d.insurance_id,'',d.insurance_name));
+        //回调函数
+        function shw(data) {
+            //指定一个字符串，用于拼接要显示的内容
+            var res="";
+            //循环得到每一件商品信息，显示成特定的布局
+            $.each(data.data,function (index,inquiryOrder) {
 
-                $("#insurance_name").html(d.insurance_name);//保险名称
-                $("#insurance_introduce").html(d.insurance_introduce);//保险介绍
-                $("[name=deductible]").val(d.insurance_id);//将险种编号存入不计免赔中
-                $("#toubao").val(d.insurance_id);//将险种编号存入是否投保选项中
+                res+="<tbody>";
 
-                dd+="<li>"
-                dd+=$("#typeOfInsurance").html()
-                dd+="</li>"
-            })
-            $("#insurance").append(dd)
-            $("#typeOfInsurance").remove();
+                //将每一件商品信息，显示在隐藏的布局的表格中
+                $("#order_id").attr("src",inquiryOrder.customer_order.order_id);//订单号
 
-            $(".prompt").hover(function(){
-                $(this).find($(".prompt_content")).css("display","inline-block");
-            },function(){
-                $(this).find($(".prompt_content")).css("display","");
-            })
-        },
-        error:function () {
-            //请求失败执行代码
-            layer.open({
-                title: '错误提示'
-                ,content: '险种加载失败'
+                if(inquiryOrder.customer_order.inquiry_time==null || inquiryOrder.customer_order.inquiry_time==undefined){
+                    $("#inquiry_time").html("无");//询价时间
+                }else{
+                    $("#inquiry_time").html(inquiryOrder.customer_order.inquiry_time);//询价时间
+                }
+
+                $("#car_number").html(inquiryOrder.car.car_number);//车牌号
+                $("#car_truename").html("车主："+inquiryOrder.customer_order.car_truename);//车主
+
+                var insuranceItemhtml="";
+
+                var price=0;
+
+                $.each(inquiryOrder.insuranceItem,function (index1,insurance){
+
+                    price+=insurance.premium;
+
+                    if(index1==0){
+                        insuranceItemhtml+=insurance.insurance_name;
+                    }else{
+                        insuranceItemhtml+="，"+insurance.insurance_name;
+                    }
+                })
+
+                $("#insurances").html(insuranceItemhtml);//保险项信息
+
+                $("#price").html("￥ "+price);//报价
+
+                if(inquiryOrder.customer_order.status=="0" || inquiryOrder.customer_order.status=="1"){
+                    $("#status").html("等待报价");//订单状态
+                }
+                if(inquiryOrder.customer_order.status=="2" || inquiryOrder.customer_order.status=="3"){
+                    $("#status").html("报价完成");//订单状态
+                }
+
+                $("#view_details").attr("href","");//查看详细
+
+                if(inquiryOrder.customer_order.status=="0" || inquiryOrder.customer_order.status=="1"){
+                    $("#resubmission").css("display","inline-block");
+                    $("#resubmission").attr("onclick","Resubmitted('"+$("#resubmission")+"','"+inquiryOrder.customer_order.order_id+"')");//重新提交
+                }else{
+                    $("#resubmission").css("display","none");
+                }
+
+                res+=$("#tbody").html();
+
+                res+="</tbody>";
+            });
+            //将内容添加table中
+            $("#mytbody").html(res);
+
+            /*********显示分页控件******************/
+            $("#page").paging({
+                pageNum: data.pageNum, // 当前页面
+                totalNum: data.maxPage, // 总页码
+                totalList: data.count, // 记录总数量
+                callback: function (num) { //回调函数
+
+                    $("#mytbody").html("");//清空表格中的原有数据
+
+                    $.ajax({
+                        url:"http://api.insurance.com/api/order/insuanceOrder/inquiryList/cust_id",
+                        type:"GET",
+                        data:{"page":num,"limit":3},
+                        dataType:"json",
+                        success: shw
+                    });
+                }
             });
         }
-    })
 
-    // axios.get("")
-    //     .then(function (value) {
-    //
-    //
-    //     }).catch(function (reason) {
-    //
-    // });
-
-});
-
-function Insurance(_insurance_id,_deductible) {
-    this.item_id=null;
-    this.premium=null;
-    this.insured_amount=null;
-    this.order_id=null;
-    this.policy_id=null;
-    this.insurance_id=_insurance_id;//险种编号
-    this.is_no_deductible=_deductible;//是否不计免赔
-}
-
-function Insurance_xinxi(_insurance_id,_deductible,_insurance_name) {
-    this.insurance_id=_insurance_id;//险种编号
-    this.is_no_deductible=_deductible;//是否不计免赔
-    this.insurance_name=_insurance_name;//险种名称
-}
-
-function zxc(_insurance_id,_deductible) {
-
-    var name="";
-
-    $.each(insurList1,function (index,d){
-        if(d.insurance_id==_insurance_id){
-            // console.log(d.insurance_name)
-            name=d.insurance_name;
-        }
-    })
-
-    return name;
-}
-
- /*****************提交查询**************/
- function Inquiry_submit_Policy(){
-
-     var mylist=[];                             //险种项集合
-     // var cust_id=$("[name=cust_id]").val();           //提取出客户编号
-     // var customer_order=$("#frm").serialize();  //客户投保订单
-     var userInsurance=JSON.stringify([[${userInsurance}]]);    //车辆信息，被保人信息
-
-     // alert(userInsurance)
-     // // alert($.parse(userInsurance))
-     //
-     // var str = JSON.stringify(userInsurance);
-     // alert(str);
-
-
-     //险种编号，是否不急免赔，险种名称
-     var insurList2=[];
-
-     $.each($("[name=insure]"),function (index1,d){
-         $.each($("[name=deductible]"),function (index2,s) {
-             if($(d).val()==$(s).val()){
-                 if($(s).is(":checked")){
-                     mylist.push(new Insurance($(d).val(),1));
-                     insurList2.push(new Insurance_xinxi($(d).val(),1,zxc($(d).val()) ));
-                 }else{
-                     mylist.push(new Insurance($(d).val(),0));
-                     insurList2.push(new Insurance_xinxi($(d).val(),0,zxc($(d).val())));
-                 }
-             }
-         })
-     })
-
-     //险种编号，是否不急免赔
-     mylist=JSON.stringify(mylist)
-
-     console.log(insurList2);
-     console.log(insurList1);
-
-     var insurancehtml="";
-     var deductiblehtml="";
-
-     $.each(insurList2,function (index3,dd){
-
-         //险种名称
-         $("#insurancename").html(dd.insurance_name);
-         insurancehtml+="<tr>";
-         insurancehtml+=$("#insurancenames").html();
-         insurancehtml+="</tr>";
-
-         //不计免赔
-         $("#deductiblename").html(dd.insurance_name);
-         deductiblehtml+="<span class='name'>";
-         deductiblehtml+=$("#deductiblename").html();
-         deductiblehtml+="</span>";
-
-     })
-
-     $("#insurances").html(insurancehtml);
-     $("#deductibles").html(deductiblehtml);
-
-     var order_id="";
-
-     $.ajax({
-         url:"http://api.insurance.com/api/order/insuanceOrder/createOrder",
-         data:$("#frm").serialize()+"&list="+mylist+"&userInsurance="+userInsurance,
-         type:"post",
-         // dataType:"json",
-         success: function (data) {
-            // alert("进来了")
-             order_id=data;
-             $("#order_id").html(order_id);
-         },
-         error:function () {
-             layer.open({
-                 title: '错误提示'
-                 ,content: '保单创建失败'
-             });
-             return;
-         }
-     })
-
-
-     var jiaoqiangxian_tou =$("#jiaoqiangxian_tou").is(":checked");
-     var jiaoqiangxian_start_date=$("[name=jiaoqiangxian_start_date]").val();
-
-     var is_chechuanshui=$("[name=is_chechuanshui]").val();
-
-     var shangyexian_tou =$("#shangyexian_tou").is(":checked");
-     var shangyexian_start_date=$("[name=shangyexian_start_date]").val();
-
-     $("#is_pay_jiaoqiangxian").html(jiaoqiangxian_tou?'是':'否');
-     $("#jiaoqiangxian_start_date").html(jiaoqiangxian_start_date);
-
-     $("#is_chechuanshui").html(is_chechuanshui==1?'正常缴纳':'不缴纳');
-
-     $("#is_pay_shangyexian").html(shangyexian_tou?'是':'否');
-     $("#shangyexian_start_date").html(shangyexian_start_date);
-
-    layer.open({
-	  type: 1,
-	  shade: false,
-	  title:false,
-	  area: ['900px','600px'], //宽高 
-	  content: $('#Query_results_style'),
-	  btn: ['提交询价','取消'],
-	  yes:function(index) {
-
-          $.ajax({
-              url:"http://api.insurance.com/api/order/insuanceOrder/submit_inquiry/"+order_id,
-              type:"post",
-              success:function () {
-                  //提交询价，服务端流程进入 询价
-                  layer.confirm('提交交成，功请耐心等待结果！', {
-                      btn: ['确定'] //按钮
-                  }, function(){
-                      location.href="/load";
+    });
+	
+	
+function Resubmitted(obj,id){
+	
+	layer.open(	{	
+		      title: '提示框',				
+			  icon:0,
+			  content:'你确定要再次询价吗？',
+		      btn:['确认','取消'],
+			  yes:function(index){
+                  $.ajax({
+                      url:"http://api.insurance.com/api/order/insuanceOrder/submit_inquiry/"+id,
+                      type:"post",
+                      success:function () {
+                          //提交询价，服务端流程进入 询价
+                          layer.confirm('提交交成，功请耐心等待结果！', {
+                              btn: ['确定'] //按钮
+                          }, function(){
+                              location.href="/load";
+                          })
+                      },
+                      error:function () {
+                          //提交询价，服务端流程进入 询价
+                          layer.confirm('提交失败！', {
+                              btn: ['确定'] //按钮
+                          })
+                      }
                   })
-              },
-              error:function () {
-                  //提交询价，服务端流程进入 询价
-                  layer.confirm('提交失败！', {
-                      btn: ['确定'] //按钮
-                  })
+                  $(obj).remove();
               }
-          })
-      },
-      no:function () {
-          location.href="/load";
-      }
-	   
- })
-
-
+		})	
+	
 }
 </script>
