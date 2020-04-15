@@ -1,5 +1,6 @@
 package org.java.web;
 
+import com.sun.deploy.net.URLEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 @Controller
@@ -61,6 +64,5 @@ public class CustomerController {
     public String updateInfo(){
         return "/updateInfo";
     }
-
 
 }
