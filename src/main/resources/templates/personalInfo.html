@@ -60,7 +60,7 @@
                 var userinfo = value.data;//得到服务端返回的结果
                 $("#id").val(userinfo.id);
               //alert(userinfo.username)
-                axios.get("http://api.insurance.com/api/customer/byuserId/"+userinfo.id).then(function (data) {
+                axios.get("http://api.insurance.com/api/customer/customer/byuserId/"+userinfo.id).then(function (data) {
                     var bir = data.data.cust_birthday;
                    $("#uname").val(data.data.cust_truename);
                     $("#bir").val(bir);
@@ -93,7 +93,7 @@
        // var bir=SimpleDateFormat.DateTimeFormat($("#bir").val(),"yyyy-MM-dd");
         //alert(bir)
         $.ajax({
-            url:"http://api.insurance.com/api/customer/updateInfo/"+id+"/"+uname+"/"+phone+"/"+email,
+            url:"http://api.insurance.com/api/customer/customer/updateInfo/"+id+"/"+uname+"/"+phone+"/"+email,
             type:"put",
 
             success:function () {

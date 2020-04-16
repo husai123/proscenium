@@ -34,7 +34,7 @@ $("#btn").click(function () {
         return;
     }else {
         $.ajax({
-            url:"http://api.insurance.com/api/customer/updatePwd/"+uname+"/"+pwd,
+            url:"http://api.insurance.com/api/customer/customer/updatePwd/"+uname+"/"+pwd,
             type:"put",
             //data:{"uname":uname,"pwd":pwd},
             success:function () {
