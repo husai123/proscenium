@@ -13,7 +13,8 @@
     <title>Title</title>
 </head>
 <body>
-<table  style="width:700px;height: 480px;background-color: white;text-align: center;">
+<h1>修改密码</h1>
+<table  style="width:850px;height: 420px;background-color: white;text-align: center;">
     <tr ><td><b style="font-family:Arial,Helvetica,隶书" >输入用户名：</b><input type="text" id="uname"></td></tr>
     <tr><td><b style="font-family:Arial,Helvetica,隶书" >请输入新密码：</b><input type="password" id="pwd" ></td></tr>
     <tr><td><b style="font-family:Arial,Helvetica,隶书" >请确认新密码：</b><input type="password" id="pwd1"></td></tr>
@@ -47,27 +48,6 @@ $("#btn").click(function () {
 
 })
 
-
-        // //发出axios请求，传递cookie到授权中心
-        //
-        // //设置允许axios携带cookie
-        // axios.defaults.withCredentials = true;
-        //
-        // axios.get("http://api.insurance.com/api/auth/verify")
-        //     .then(function (value) {
-        //         //alert("已登录");
-        //         //得到授权中心返回的载荷：userinfo,里面包含了id,username
-        //         var userinfo = value.data;//得到服务端返回的结果
-        //         var cid=userinfo.id;
-        //         $("#btn").click(function () {
-        //             axios.update("http://api.insurance.com/api/customer/updatePwd",{"pwd":$("#pwd1").val()}).then(function () {
-        //                 alert("修改成功")
-        //             })
-        //         })
-        //
-        //     })
-        //     .catch(function (reason) {
-        //     });
 
 </script>
 </body>

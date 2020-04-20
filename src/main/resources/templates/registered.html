@@ -146,7 +146,7 @@
         }
         console.log($("#frm").serialize())
         $.ajax({
-            url:"http://api.insurance.com/api/customer/register",
+            url:"http://api.insurance.com/api/customer/customer/register",
             type:"post",
             data:$("#frm").serialize(),
             success:function () {
