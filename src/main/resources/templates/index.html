@@ -38,8 +38,8 @@
                         <a href="javascript:" class="hd_menu">我的订单</a>
                         <div class="hd_menu_list" style="display: none;">
                             <ul>
-                                <li><a href="xunjia.html">询价订单</a></li>
-                                <li><a href="baoxian.html">保险订单</a></li>
+                                <li><a th:href="@{/init/xunjia}">询价订单</a></li>
+                                <li><a th:href="@{/init/insurance}">保险订单</a></li>
                             </ul>
                         </div>
                     </li>
@@ -75,7 +75,7 @@
     </div>
     <!--栏目-->
     <div class="header relative clearfix">
-        <div class="logo_style"><a th:href="@{/load}"><img src="images/logo.png" /><h6 class="pingtai_name">一站式汽车综合服务平台</h6></a></div>
+        <div class="logo_style"><a th:href="@{/load}"><img th:src="@{/images/logo.png}" /><h6 class="pingtai_name">一站式汽车综合服务平台</h6></a></div>
         <div class="middle_style">
             <div class="Search">
                 <p><select name="" class="select_name"><option value="1">全部</option><option value="2">保险</option><option value="3">商城</option></select><input name="搜索框" type="text" class="text" placeholder="请输入关键字"><input name="" onclick="submit_btn()" type="submit" value="搜索" class="Search_btn"></p>

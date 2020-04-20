@@ -38,8 +38,8 @@
                 <a href="javascript:" class="hd_menu">我的订单</a>
                 <div class="hd_menu_list" style="display: none;">
                     <ul>
-                        <li><a href="xunjia.html">询价订单</a></li>
-                        <li><a href="baoxian.html">保险订单</a></li>
+                        <li><a th:href="@{/init/xunjia}">询价订单</a></li>
+                        <li><a th:href="@{/init/insurance}">保险订单</a></li>
                     </ul>
                 </div>
             </li>
@@ -570,7 +570,7 @@ $(function () {
 
     //加载保险
     $.ajax({
-        url:"http://api.insurance.com/api/order/type_of_insurance/query",
+        url:"/type_of_insurance/query",
         type:"get",
         dataType:"json",
         success:function (value) {
@@ -709,7 +709,7 @@ function zxc(_insurance_id,_deductible) {
      var order_id="";
 
      $.ajax({
-         url:"http://api.insurance.com/api/order/insuanceOrder/createOrder",
+         url:"/insuanceOrder/createOrder",
          data:$("#frm").serialize()+"&list="+mylist+"&userInsurance="+userInsurance,
          type:"post",
          // dataType:"json",
@@ -754,7 +754,7 @@ function zxc(_insurance_id,_deductible) {
 	  yes:function(index) {
 
           $.ajax({
-              url:"http://api.insurance.com/api/order/insuanceOrder/submit_inquiry/"+order_id,
+              url:"/insuanceOrder/submit_inquiry/"+order_id,
               type:"post",
               success:function () {
                   //提交询价，服务端流程进入 询价

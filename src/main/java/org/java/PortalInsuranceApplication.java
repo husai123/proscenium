@@ -1,9 +1,12 @@
 package org.java;
 
+import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import tk.mybatis.spring.annotation.MapperScan;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@MapperScan(basePackages = "org.java.dao")
 public class PortalInsuranceApplication {
 
     public static void main(String[] args) {
