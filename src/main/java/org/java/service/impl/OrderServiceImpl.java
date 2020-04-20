@@ -2,9 +2,6 @@ package org.java.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
-import org.activiti.engine.task.TaskQuery;
 import org.java.pojo.Customer;
 import org.java.dao.*;
 import org.java.pojo.*;
