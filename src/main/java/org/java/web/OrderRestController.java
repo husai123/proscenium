@@ -1,6 +1,7 @@
 package org.java.web;
 
 
+import org.java.pojo.Customer_Certificates;
 import org.java.util.PageResult;
 import org.java.util.JsonUtils;
 import org.java.pojo.Type_Of_Insurance_Item;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -127,5 +130,54 @@ public class OrderRestController {
         return ResponseEntity.ok(null);
     }
 
+//    @PostMapping("/img")
+//    public String up(@RequestParam("file")MultipartFile file) throws IOException{
+//        String fname = file.getOriginalFilename();
+//
+//        //获得文件的扩展名----jpg
+//        String type = fname.substring(fname.lastIndexOf(".")+1);
+//        System.out.println("**********************");
+//        System.out.println(fname);
+//        System.out.println(type);
+//        System.out.println("**********************");
+//        return fname;
+//    }
+
+
+
+    /**
+     * 保存用户填写的证件信息
+     */
+    @PostMapping("/savedata")
+    public void savedata(
+                        String certificates_id,
+                        String identity_positive,
+                         String identity_back,
+                         String driver_license,
+                         String driver_back,
+                         String front_of_driving_license,
+                         String front_of_driving_back,
+                        String order_id
+    ){
+        Customer_Certificates customer_certificates=new Customer_Certificates();
+
+        customer_certificates.setCertificates_id(certificates_id);
+
+        customer_certificates.setOrder_id(order_id);
+
+        customer_certificates.setIdentity_positive(identity_positive);
+        customer_certificates.setIdentity_back(identity_back);
+
+        customer_certificates.setDriver_license(driver_license);
+        customer_certificates.setDriver_back(driver_back);
+
+        customer_certificates.setFront_of_driving_license(front_of_driving_license);
+        customer_certificates.setFront_of_driving_back(front_of_driving_back);
+
+//        System.out.println(order_id);
+
+        System.out.println("保存数据");
+        orderService.savedata(customer_certificates);
+    }
 
 }

@@ -266,7 +266,7 @@
      <div class="user_Insurance_order_style Plate_info">       
        <div class="padding20">
      <div class="order_content ">
-      <table class="Inquiry_order">
+      <table class="Inquiry_order" id="Inquiry_order">
          <thead>
           <tr>
            <th width="300px">车辆信息</th>
@@ -280,31 +280,31 @@
          <tbody id="mytbody">
 
          </tbody>
-
           <tbody id="tbody" style="display: none">
-              <tr class="order_number">
-                  <td colspan="5">
-                      <span class="Numbering">订单号：</span>
-                      <span id="order_id">WE123456789098 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                      <span class="time">询价时间：
+          <tr class="order_number">
+              <td colspan="5">
+                  <span class="Numbering">订单号：</span>
+                  <span id="order_id">WE123456789098 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <span class="time">询价时间：
                        <sapn id="inquiry_time">2017-2-12 11:12</sapn>
                    </span>
-                  </td>
-              </tr>
-              <tr class="Inquiry_order_content">
-                  <td>
-                      <h4 id="car_number">苏A AS123</h4>
-                      <h5 id="car_truename">车主：张霞</h5>
-                  </td>
-                  <td id="insurances">保险全显</td>
-                  <td class="td_status" id="status">等待报价</td>
-                  <td class="bx_price" id="price">暂无</td>
-                  <td class="td_manage">
-                      <a href="" class="btn detailed_btn mb15" id="view_details">查看详细</a>
-                      <a href="javascript:" class="btn btn_huise" onclick="" id="resubmission">重新提交</a>
-                  </td>
-              </tr>
+              </td>
+          </tr>
+          <tr class="Inquiry_order_content">
+              <td>
+                  <h4 id="car_number">苏A AS123</h4>
+                  <h5 id="car_truename">车主：张霞</h5>
+              </td>
+              <td id="insurances">保险全显</td>
+              <td class="td_status" id="status">等待报价</td>
+              <td class="bx_price" id="price">暂无</td>
+              <td class="td_manage">
+                  <a href="" class="btn detailed_btn mb15" id="view_details">查看详细</a>
+                  <a href="javascript:" class="btn btn_huise" onclick="" id="resubmission">重新提交</a>
+              </td>
+          </tr>
           </tbody>
+
         </table>
      </div>
      <!--<div class="Paging">
@@ -400,6 +400,7 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
 <script>
@@ -424,113 +425,131 @@
 
                 cust_id=userinfo.id;//将客户编号存储到标签中
 
+                // alert("/insuanceOrder/inquiryList/"+cust_id)
                 //替换显示的内容
                 $("#loginDiv").html(msg);
                 $("#geren").css("display","inline-block");
                 $("#dingdan").css("display","inline-block");
+                //一加载，就发出跨域请求，获得后台微服务提供的数据
+                $.ajax({
+                    url: "/insuanceOrder/inquiryList/"+cust_id,
+                    type: "get",
+                    data: {"page": 1, "limit": 3},
+                    dataType: "json",
+                    success: shw  //回调函数的名称
+                });
             })
             .catch(function (reason) {
                 $("#geren").css("display","none");
                 $("#dingdan").css("display","none");
                 // location.href="/init/login";
             });
-
-
-        //一加载，就发出跨域请求，获得后台微服务提供的数据
-        $.ajax({
-            url: "/insuanceOrder/inquiryList/"+cust_id,
-            type: "get",
-            data: {"page": 1, "limit": 3},
-            dataType: "json",
-            success: shw  //回调函数的名称
-        });
-
-
-        //回调函数
-        function shw(data) {
-            //指定一个字符串，用于拼接要显示的内容
-            var res="";
-            //循环得到每一件商品信息，显示成特定的布局
-            $.each(data.data,function (index,inquiryOrder) {
-
-                res+="<tbody>";
-
-                //将每一件商品信息，显示在隐藏的布局的表格中
-                $("#order_id").attr("src",inquiryOrder.customer_order.order_id);//订单号
-
-                if(inquiryOrder.customer_order.inquiry_time==null || inquiryOrder.customer_order.inquiry_time==undefined){
-                    $("#inquiry_time").html("无");//询价时间
-                }else{
-                    $("#inquiry_time").html(inquiryOrder.customer_order.inquiry_time);//询价时间
-                }
-
-                $("#car_number").html(inquiryOrder.car.car_number);//车牌号
-                $("#car_truename").html("车主："+inquiryOrder.customer_order.car_truename);//车主
-
-                var insuranceItemhtml="";
-
-                var price=0;
-
-                $.each(inquiryOrder.insuranceItem,function (index1,insurance){
-
-                    price+=insurance.premium;
-
-                    if(index1==0){
-                        insuranceItemhtml+=insurance.insurance_name;
-                    }else{
-                        insuranceItemhtml+="，"+insurance.insurance_name;
-                    }
-                })
-
-                $("#insurances").html(insuranceItemhtml);//保险项信息
-
-                $("#price").html("￥ "+price);//报价
-
-                if(inquiryOrder.customer_order.status=="0" || inquiryOrder.customer_order.status=="1"){
-                    $("#status").html("等待报价");//订单状态
-                }
-                if(inquiryOrder.customer_order.status=="2" || inquiryOrder.customer_order.status=="3"){
-                    $("#status").html("报价完成");//订单状态
-                }
-
-                $("#view_details").attr("href","/orderJump/init/detailed/"+inquiryOrder.customer_order.order_id);//查看详细
-
-                if(inquiryOrder.customer_order.status=="0" || inquiryOrder.customer_order.status=="1"){
-                    $("#resubmission").css("display","inline-block");
-                    $("#resubmission").attr("onclick","Resubmitted(this,'"+inquiryOrder.customer_order.order_id+"')");//重新提交
-                }else{
-                    $("#resubmission").css("display","none");
-                }
-
-                res+=$("#tbody").html();
-
-                res+="</tbody>";
-            });
-            //将内容添加table中
-            $("#mytbody").html(res);
-
-            /*********显示分页控件******************/
-            $("#page").paging({
-                pageNum: data.pageNum, // 当前页面
-                totalNum: data.maxPage, // 总页码
-                totalList: data.count, // 记录总数量
-                callback: function (num) { //回调函数
-
-                    $("#mytbody").html("");//清空表格中的原有数据
-
-                    $.ajax({
-                        url:"/insuanceOrder/inquiryList/"+cust_id,
-                        type:"GET",
-                        data:{"page":num,"limit":3},
-                        dataType:"json",
-                        success: shw
-                    });
-                }
-            });
-        }
-
     });
-	
+
+    function dataTime(data) {
+        if(10>data){
+            return "0"+data
+        }
+        return data;
+    }
+
+    //回调函数
+    function shw(data) {
+        //指定一个字符串，用于拼接要显示的内容
+        var res="";
+        //循环得到每一件商品信息，显示成特定的布局
+        $.each(data.data,function (index,inquiryOrder) {
+
+            res+="<tbody>";
+
+            //设置时间格式
+            var oldDate = new Date(inquiryOrder.customer_order.inquiry_time)
+
+            var oldyear = oldDate.getFullYear();
+            var oldmonth = oldDate.getMonth() + 1;    //js从0开始取
+            var oldday = oldDate.getDate();
+            var oldhour = oldDate.getHours();
+            var oldminutes = oldDate.getMinutes();
+            // var oldsecond = oldDate.getSeconds();
+
+            //将每一件商品信息，显示在隐藏的布局的表格中
+            $("#order_id").html(inquiryOrder.customer_order.order_id);//订单号
+
+            if(inquiryOrder.customer_order.inquiry_time==null || inquiryOrder.customer_order.inquiry_time==undefined){
+                $("#inquiry_time").html("无");//询价时间
+            }else{
+                $("#inquiry_time").html(oldyear + "年" + dataTime(oldmonth) + "月" + dataTime(oldday) + "日 " + dataTime(oldhour) + ":" + dataTime(oldminutes));//询价时间
+            }
+
+            $("#car_number").html(inquiryOrder.car.car_number);//车牌号
+            $("#car_truename").html("车主："+inquiryOrder.customer_order.car_truename);//车主
+
+            var insuranceItemhtml="";
+
+            var price=0;
+
+            $.each(inquiryOrder.insuranceItem,function (index1,insurance){
+                // console.log(insurance)
+                price+=insurance.premium;
+
+                if(index1==0){
+                    insuranceItemhtml+=insurance.insurance_name;
+                }else{
+                    insuranceItemhtml+="，"+insurance.insurance_name;
+                }
+            })
+
+            $("#insurances").html(insuranceItemhtml);//保险项信息
+
+
+            if(price==0 || price==undefined || price==NaN){
+                $("#price").html("暂无");
+            }else{
+                $("#price").html("￥ "+price);//报价
+            }
+
+            if(inquiryOrder.customer_order.status=="0" || inquiryOrder.customer_order.status=="1"){
+                $("#status").html("等待报价");//订单状态
+            }
+            if(inquiryOrder.customer_order.status=="2" || inquiryOrder.customer_order.status=="3"){
+                $("#status").html("报价完成");//订单状态
+            }
+
+            $("#view_details").attr("href","/orderJump/init/detailed/"+inquiryOrder.customer_order.order_id);//查看详细
+
+            if(inquiryOrder.customer_order.status=="0" || inquiryOrder.customer_order.status=="1"){
+                $("#resubmission").css("display","inline-block");
+                $("#resubmission").attr("onclick","Resubmitted(this,'"+inquiryOrder.customer_order.order_id+"')");//重新提交
+            }else{
+                $("#resubmission").css("display","none");
+            }
+
+            res+=$("#tbody").html();
+
+            res+="</tbody>";
+        });
+        //将内容添加table中
+        $("#Inquiry_order").html($("#Inquiry_order").html()+res);
+        // alert(data.count)
+        /*********显示分页控件******************/
+        $("#page").paging({
+            pageNum: data.pageNum, // 当前页面
+            totalNum: data.maxPage, // 总页码
+            totalList: data.count, // 记录总数量
+            callback: function (num) { //回调函数
+
+                $("#mytbody").html("");//清空表格中的原有数据
+
+                $.ajax({
+                    url:"/insuanceOrder/inquiryList/"+cust_id,
+                    type:"GET",
+                    data:{"page":num,"limit":3},
+                    dataType:"json",
+                    success: shw
+                });
+            }
+        });
+    }
 	
 function Resubmitted(obj,id){
 	
@@ -558,7 +577,6 @@ function Resubmitted(obj,id){
                       }
                   })
               }
-		})	
-	
+		})
 }
 </script>

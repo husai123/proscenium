@@ -121,8 +121,13 @@ public class OrderServiceImpl implements OrderService {
 
         System.out.println("客户编号"+customer_order.getCust_id());
 
+//        System.out.println(customerMapper.selectByPrimaryKey(customer_order.getCust_id()));
+
+
         //获取客户信息
-        Customer customer = customerMapper.selectByPrimaryKey(customer_order.getCust_id());
+        Customer customer = customerMapper.findById(customer_order.getCust_id());
+
+        System.out.println(customer);
 
         //为投保人信息表添加数据
         Policy_Holder_Info policy_holder_info=new Policy_Holder_Info();
@@ -176,12 +181,23 @@ public class OrderServiceImpl implements OrderService {
 //
 //        /*****************************************************************************/
 
+        System.out.println("险种项集合数量："+list.size());
+
         //将险种项表信息录入数据库
         for(Type_Of_Insurance_Item item : list){
+
+//            System.out.println("进来了***********************");
+
             item.setItem_id(UUID.randomUUID().toString());//编号
             item.setOrder_id(order_id);
+
             type_of_insurance_itemMapper.insert(item);
+
+            System.out.println(item);
+//            System.out.println(order_id);
         }
+
+
         //将客户订单数据存入数据库
         customer_orderMapper.insert(customer_order);
         //将被保人信息存入数据库
@@ -253,6 +269,7 @@ public class OrderServiceImpl implements OrderService {
 
                 InsuranceItem insuranceItem=new InsuranceItem(type_of_insurance,type_of_insurance_item);
 
+
                 InsuranceItems.add(insuranceItem);
             }
 
@@ -277,7 +294,7 @@ public class OrderServiceImpl implements OrderService {
 
         //封装成PageResult
         PageResult pageResult = new PageResult();
-        pageResult.setData(list);
+        pageResult.setData(pageInfo.getList());
         pageResult.setCode(0);//正常
         pageResult.setCount(pageInfo.getTotal());//数据总数
         pageResult.setPageNum(pageInfo.getPageNum());//当前页
@@ -362,24 +379,30 @@ public class OrderServiceImpl implements OrderService {
         double price=0;//总保费
 
         for (Type_Of_Insurance_Item type_of_insurance_item1 : Insurance_Item){
+
+
             //获取险种项名称
             Type_Of_Insurance type_of_insurance = type_of_insuranceMapper.selectByPrimaryKey(type_of_insurance_item1.getInsurance_id());
 
-            InsuranceItem insuranceItem=new InsuranceItem(type_of_insurance,type_of_insurance_item);
+            InsuranceItem insuranceItem=new InsuranceItem(type_of_insurance,type_of_insurance_item1);
 
-            if(type_of_insurance_item1.getPremium()!=null || type_of_insurance_item1.getPremium()!=0){
+
+
+            if(type_of_insurance_item1.getPremium()!=null && type_of_insurance_item1.getPremium()!=0){
                 insurance_price+=type_of_insurance_item1.getPremium();
             }
 
             insuranceItems.add(insuranceItem);
+
+//            System.out.println("数据："+insuranceItem);
         }
 
         price+=insurance_price;
 
-        if(customer_order.getJiaoqiangxian_price()!=null || customer_order.getJiaoqiangxian_price()!=0){
+        if(customer_order.getJiaoqiangxian_price()!=null && customer_order.getJiaoqiangxian_price()!=0){
             price+=customer_order.getJiaoqiangxian_price();
         }
-        if(customer_order.getShangyexian_price()!=null || customer_order.getShangyexian_price()!=0){
+        if(customer_order.getShangyexian_price()!=null && customer_order.getShangyexian_price()!=0){
             price+=customer_order.getShangyexian_price();
         }
 
@@ -416,9 +439,92 @@ public class OrderServiceImpl implements OrderService {
 //        runtimeService.deleteProcessInstance(customer_order.getInstance_id(), "业务取消");
 //        /*****************************************************************************/
 
-        //修改订单状态 7 : 已取消
-        customer_order.setStatus("7");
+        //当订单状态为2：待完善时，修改订单状态为7：已取消
+        if(customer_order.getStatus().equals("2")){
+            //修改订单状态 7 : 已取消
+            customer_order.setStatus("7");
+        }
+        //当订单状态为5：审核不通过时，修改订单状态为8：退款中
+        if(customer_order.getStatus().equals("2")){
+            //修改订单状态 8：退款中
+            customer_order.setStatus("8");
+        }
 
+        //更新取消订单时间
+        customer_order.setClose_time(new Date());
+
+        customer_orderMapper.updateByPrimaryKey(customer_order);
+    }
+
+
+    @Autowired
+    private Customer_CertificatesMapper customer_certificatesMapper;
+
+
+    /**
+     * 根据订单编号查询客户证件表信息
+     */
+    @Override
+    public Customer_Certificates perfect_information(String order_id){
+
+        Customer_Certificates customer_certificates1 = customer_certificatesMapper.findByOrderId(order_id);
+
+        return customer_certificates1;
+    }
+
+    /**
+     * 添加客户证件表信息
+     */
+    @Override
+    @Transactional
+    public void savedata(Customer_Certificates customer_certificates) {
+
+        //修改订单状态
+        /************************************************************/
+        //先查询订单
+        Customer_Order customer_order = customer_orderMapper.selectByPrimaryKey(customer_certificates.getOrder_id());
+
+//        System.out.println(customer_order);
+
+        System.out.println(customer_certificates);
+
+        //当订单状态为2：待完善时，修改订单状态为3：待支付
+        //并且将数据添加到数据库
+        if(customer_order.getStatus().equals("2")){
+            customer_order.setStatus("3");
+            /************************************************************/
+            //设置客户证件表编号
+            customer_certificates.setCertificates_id(UUID.randomUUID().toString());
+            //将客户证件数据添加到数据库中
+            customer_certificatesMapper.insert(customer_certificates);
+        }
+        //当订单状态为5：审核不通过，修改订单状态为4：待审核
+        //并且修改数据
+        if(customer_order.getStatus().equals("5")){
+            customer_order.setStatus("4");
+
+            customer_certificatesMapper.updateByPrimaryKey(customer_certificates);
+
+        }
+        //修改订单状态
+        customer_orderMapper.updateByPrimaryKey(customer_order);
+    }
+
+
+    /**
+     * 修改订单状态 从 3：待支付 到 4：待审核
+     * @param order_id
+     */
+    @Override
+    @Transactional
+    public void updateOrderStatus(String order_id) {
+        //通过编号查询订单信息
+        Customer_Order customer_order = customer_orderMapper.selectByPrimaryKey(order_id);
+
+        //修改订单状态
+        customer_order.setStatus("4");
+
+        //修改订单状态
         customer_orderMapper.updateByPrimaryKey(customer_order);
     }
 }

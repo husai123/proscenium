@@ -37,6 +37,19 @@ public class InsuranceItem {
         this.insurance_name = type_of_insurance.getInsurance_name();
     }
 
+    @Override
+    public String toString() {
+        return "InsuranceItem{" +
+                "item_id='" + item_id + '\'' +
+                ", insurance_id='" + insurance_id + '\'' +
+                ", premium=" + premium +
+                ", insured_amount=" + insured_amount +
+                ", order_id='" + order_id + '\'' +
+                ", policy_id='" + policy_id + '\'' +
+                ", is_no_deductible='" + is_no_deductible + '\'' +
+                ", insurance_name='" + insurance_name + '\'' +
+                '}';
+    }
 
     public String getItem_id() {
         return item_id;
@@ -44,5 +57,62 @@ public class InsuranceItem {
 
     public void setItem_id(String item_id) {
         this.item_id = item_id;
+    }
+
+
+    public String getInsurance_id() {
+        return insurance_id;
+    }
+
+    public void setInsurance_id(String insurance_id) {
+        this.insurance_id = insurance_id;
+    }
+
+    public Double getPremium() {
+        return premium;
+    }
+
+    public void setPremium(Double premium) {
+        this.premium = premium;
+    }
+
+    public Double getInsured_amount() {
+        return insured_amount;
+    }
+
+    public void setInsured_amount(Double insured_amount) {
+        this.insured_amount = insured_amount;
+    }
+
+    public String getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
+    }
+
+    public String getPolicy_id() {
+        return policy_id;
+    }
+
+    public void setPolicy_id(String policy_id) {
+        this.policy_id = policy_id;
+    }
+
+    public String getIs_no_deductible() {
+        return is_no_deductible;
+    }
+
+    public void setIs_no_deductible(String is_no_deductible) {
+        this.is_no_deductible = is_no_deductible;
+    }
+
+    public String getInsurance_name() {
+        return insurance_name;
+    }
+
+    public void setInsurance_name(String insurance_name) {
+        this.insurance_name = insurance_name;
     }
 }

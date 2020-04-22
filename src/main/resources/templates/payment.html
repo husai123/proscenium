@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,9 +13,10 @@
 <script th:src="@{/js/cityselect.js}" type="text/javascript"></script>
 <script th:src="@{/js/layer/layer.js}" type="text/javascript"></script>
 <script th:src="@{/js/laydate/laydate.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.searchableSelect.js}"></script>
 <script th:src="@{/js/axios.min.js}"></script>
 <script th:src="@{/js/layer/layer.js}" type="text/javascript"></script>
-<title>保单详细</title>
+<title>保单确认</title>
 </head>
 
 <body>
@@ -258,118 +260,78 @@
     </div>
 </div>
 </div>
-<!--保单详情-->
+<!---->
 <div class=" pages_style">
-<div class="page ">
-<div class="Button_operation clearfix">
- <a href="javascript:history.go(-1)" class="btn btn_huise  General_size_btn">返回上一步</a>
- <a th:if="${inquiryOrder.customer_order.status=='2' || inquiryOrder.customer_order.status=='5'}" th:href="@{/orderJump/init/perfect_information/${inquiryOrder.customer_order.order_id}}" class="btn btn_red  General_size_btn">确认购买</a>
-</div>
-<div class="Query_results_style user_Policy_info" >
- <div class="Query_results margin">
-   <div class="prompt clearfix"><b>太平洋保单信息</b></div>
-   <div class="clearfix">
-    <div class="order_number">订单号：[[${inquiryOrder.customer_order.order_id}]]</div>
-    <ul class="Query_results_content clearfix">
-     <li><label class="label_name">投保城市：</label><span class="jt_content">[[${inquiryOrder.customer_order.toubaochengshi}]]</span></li>
-     <li><label class="label_name">保险公司：</label><span class="jt_content">太平洋保险</span></li>
-     <li><label class="label_name">车牌号：</label><span class="jt_content">[[${inquiryOrder.car.car_number}]]</span></li>
-    </ul>
-    <div class="Query_results_title">车主信息</div>
-    <ul class="Query_results_content clearfix">
-     <li class="width20"><label class="label_name">车主姓名：</label><span class="jt_content">[[${inquiryOrder.customer_order.car_truename}]]</span></li>
-     <li><label class="label_name">手机号：</label><span class="jt_content">[[${inquiryOrder.customer_order.phone}]]</span></li>
-     <li><label class="label_name">身份证：</label><span class="jt_content">[[${inquiryOrder.customer_order.identity}]]</span></li>
-     <li><label class="label_name">邮箱：</label><span class="jt_content">[[${inquiryOrder.customer_order.email}]]</span></li>
-    </ul>
-     <div class="Query_results_title">车辆信息</div>
-     <ul class="Query_results_content clearfix">
-     <li class="width100"><label class="label_name">品牌型号：</label><span class="jt_content">[[${inquiryOrder.car.brand_name}]]</span></li>
-     <li><label class="label_name">投保城市：</label><span class="jt_content">[[${inquiryOrder.customer_order.toubaochengshi}]]</span></li>
-     <li><label class="label_name">保险公司：</label><span class="jt_content">太平洋保险</span></li>
-     <li><label class="label_name">车牌号：</label><span class="jt_content">[[${inquiryOrder.car.car_number}]]</span></li>
-     <li><label class="label_name">车辆所属：</label><span class="jt_content">个人</span></li>
-     <li><label class="label_name">注册登记：</label><span class="jt_content">[[${#dates.format(inquiryOrder.car.car_first_register_date, 'yyyy-MM-dd')}]]</span></li>
-     <li><label class="label_name">车辆识别码：</label><span class="jt_content">[[${inquiryOrder.car.car_vin}]]</span></li>
-     <li><label class="label_name">发动机号：</label><span class="jt_content">[[${inquiryOrder.car.car_engine_number}]]</span></li>
-     <li><label class="label_name">车辆类型：</label><span class="jt_content">[[${inquiryOrder.car.car_type}]]</span></li>
-     <li><label class="label_name">燃油类型：</label><span class="jt_content">[[${inquiryOrder.car.fuel_type}]]</span></li>
-     <li><label class="label_name">车船税：</label>
-         <span class="jt_content" th:if="${inquiryOrder.customer_order.is_chechuanshui==1}">正常缴纳</span>
-         <span class="jt_content" th:if="${inquiryOrder.customer_order.is_chechuanshui!=1}">未缴纳</span>
-     </li>
-     <li><label class="label_name">是否过户：</label>
-         <span class="jt_content" th:if="${inquiryOrder.car.car_transfer==1}">否</span>
-         <span class="jt_content" th:if="${inquiryOrder.car.car_transfer!=1}">是</span>
-     </li>
-    </ul>
-    <div class="Query_results_title">投保信息（报价详细）</div>
-      <ul class="Insured_inquiry_info clearfix">
-       <li>
-           <label class="label_name">交强险：</label>
-           <div class="jt_content">
-               <span th:if="${inquiryOrder.customer_order.is_pay_jiaoqiangxian==1}">投保</span>
-               <span th:if="${inquiryOrder.customer_order.is_pay_jiaoqiangxian!=1}">不投保</span>
-               <span class="time">生效时间：
-                   [[${#dates.format(inquiryOrder.customer_order.jiaoqiangxian_start_date, 'yyyy-MM-dd')}]]
-               </span>
-               <span class="cost">保费：￥[[${inquiryOrder.customer_order.jiaoqiangxian_price!=null?inquiryOrder.customer_order.jiaoqiangxian_price:'待统计'}]]</span>
-           </div>
-       </li>
-       <li>
-           <label class="label_name">车船税：</label>
-           <div class="jt_content">正常缴纳 </div>
-       </li>
-       <li class="comm_insurance">
-         <div class="clearfix">
-             <label class="label_name">商业险：</label>
-             <div class="jt_content">
-                 <span th:if="${inquiryOrder.customer_order.is_pay_shangyexian==1}">投保</span>
-                 <span th:if="${inquiryOrder.customer_order.is_pay_shangyexian!=1}">不投保</span>
-                 <span class="time">生效时间：
-                      [[${#dates.format(inquiryOrder.customer_order.shangyexian_start_date, 'yyyy-MM-dd')}]]
-                 </span>
-                 <span class="cost">保费：￥[[${inquiryOrder.customer_order.shangyexian_price!=null?inquiryOrder.customer_order.shangyexian_price:'待统计'}]]</span>
-             </div>
+ <div class="page">
+ <div class="flow_step_no1 Process clearfix">
+  <ul class="clearfix">
+    <li class="step_number">1</li>
+    <li class="step_name">选择你购买的车险,完善资料</li>
+    <li class="step_number">2</li>
+    <li class="step_name">确认购买信息</li>
+    <li class="step_number">3</li>
+    <li class="step_name">选择支付方式支付</li>
+  </ul>
+  </div>
+  <div class="shopping_cart Insurance_con_style">
+    <div class="cart-table-th">
+      <div class="wp">
+          <div class="th th-width1"><div class="td-inner">保险人</div></div>
+          <div class="th th-width2"><div class="td-inner">车辆信息</div></div>
+          <div class="th th-width3"><div class="td-inner">保险公司</div></div>
+          <div class="th th-width4"><div class="td-inner">保险内容</div></div>
+          <div class="th th-width5"><div class="td-inner">保险价格</div></div>          
+          </div>
          </div>
-          <table cellpadding="0" cellspacing="0" class="insurance_style" width="100%">
-          <thead>
-           <tr>
-            <th  width="180px">保险名称</th>
-            <th>投保金额</th>
-            <th width="100px">保险费用</th>
-           </tr>
-          </thead>
-          <tbody>
-           <tr th:each="k:${inquiryOrder.insuranceItem}">
-            <td>[[${k.insurance_name}]]</td>
-            <td>足额投保</td>
-            <td>[[${k.premium!=null?k.premium:'待统计'}]]</td>
-           </tr>
-          </tbody>
-        </table>
-        <div class="clearfix Non-deductible marginsx">
-           <label class="label_name">不计免赔：</label>
-             <div class="jt_content">
-              <span class="name" th:each="s:${inquiryOrder.insuranceItem}"  th:if="${s.is_no_deductible=='1'}">
+         <div class="xj_OrderList">
+         <table cellpadding="0" cellspacing="0" class="Inquiry_order">
+         <tbody>
+        <tr class="order_number">
+         <td colspan="7"><span class="Numbering">订单号：</span><b>[[${inquiryOrder.customer_order.order_id}]]</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="time">询价时间：[[${#dates.format(inquiryOrder.customer_order.inquiry_time, 'yyyy-MM-dd')}]]</span></td>
+        </tr>
+         <tr class="Inquiry_order_content">
+         <td width="150px">[[${inquiryOrder.customer_order.car_truename}]]</td>
+         <td width="400px">
+          <h4>[[${inquiryOrder.car.car_number}]]</h4>
+          <h5>车辆名称：[[${inquiryOrder.car.brand_name}]]</h5>
+         </td>
+         <td width="200px">太平洋保险</td>
+         <td width="250px">
+         	<span class="name" th:each="s:${inquiryOrder.insuranceItem}">
                   [[${s.insurance_name}]]
               </span>
-            </div>
-            <span class="cost">保费：￥[[${inquiryOrder.Insurance_price!=0?inquiryOrder.Insurance_price:'----'}]]</span>
-            </div>
-         </li>      
-      </ul>
-    </div>
-    <!--保费统计-->
-    <div class="Premium_statistics">保费总计：￥<b>[[${inquiryOrder.price!=0?inquiryOrder.price:'----'}]]</b>元/年</div>
+         </td>
+         <td width="200px"><b class="bx_price">￥[[${inquiryOrder.Insurance_price!=0?inquiryOrder.Insurance_price:'----'}]]/年</b></td>
+         
+         
+        </tr>
+       </tbody>
+             
+         </table>
+         <div class="car_operating clearfix">
+        <!-- <div class="Pay_length"> 
+        支付年限：
+           <select class="select_time">
+                <option value="1">1年</option>
+                <option value="2">2年</option>
+                <option value="5">5年</option>
+            </select>
+         </div>-->
+         <div class="Payment_operation"><span class="Total_price">总价：<b>[[${inquiryOrder.price!=0?inquiryOrder.price:'----'}]]</b>元</span></div>
+         </div>
+         </div>
+  </div>
+  <!--支付方式-->
+  <div class="payment_method border mb20">
+<div class="title_name">支付方式</div>
+<div class="Payment_tips">请根具你自己的需求，选择付款的方式，现只支持支付宝、微信、银联支付三种付款方式。</div>
+<div class=" margin clearfix">
+ <a href="javascript:" class="Payment_operation" onclick="payment_method()"><img th:src="@{/images/zhifubao.jpg}"></a>
+ <a href="javascript:" class="Payment_operation" onclick="payment_method1()"><img th:src="@{/images/yinlianzf.jpg}"></a>
+ <a href="javascript:" class="Payment_operation" onclick="payment_method2()"><img th:src="@{/images/weixinzhif.jpg}"></a>
+</div>
+</div>
  </div>
-
-</div>
-<div class="Button_operation clearfix">
- <a href="javascript:history.go(-1)" class="btn btn_huise  General_size_btn">返回上一步</a>
-    <a th:if="${inquiryOrder.customer_order.status=='2' || inquiryOrder.customer_order.status=='5'}" th:href="@{/orderJump/init/perfect_information/${inquiryOrder.customer_order.order_id}}" class="btn btn_red  General_size_btn">确认购买</a>
-</div>
-</div>
 </div>
 <!--优势-->
 <div class="Advantage_style">
@@ -444,10 +406,23 @@
         </div>
     </div>
 </div>
+<!--提示框-->
+<!--<div class="layer_prompt none" id="layer_prompt">
+ <div class="layer_prompt_style">
+  <h3>你选择了支付宝，本次支付金额为</h3>
+  <h2>4567元</h2>
+  <h5>本次将于<b>5</b>秒后跳转支付页面，如不想支付请点击取消。</h5>
+ </div>
+</div>-->
+<form action="http://api.insurance.com/api/pay/addPay" method="post" id="payFrm" style="display: none">
+    <input type="hidden" id="tradeNo" name="tradeNo" th:value="${inquiryOrder.customer_order.order_id}"><Br>
+    <input type="hidden" id="tradeName" name="tradeName" value="太平洋保险"><Br>
+    <input type="hidden" id="tradePrice" name="tradePrice"  th:value="${inquiryOrder.price!=0?inquiryOrder.price:100}"><Br>
+    <input type="submit" value="提交"/>
+</form>
 </body>
 </html>
-<script type="text/javascript">
-
+<script>
 
     $(function () {
         //发出axios请求，传递cookie到授权中心
@@ -475,4 +450,24 @@
             });
 
     });
+
+
+function payment_method(){
+    //准备提交表单
+    $("#payFrm").submit();
+}
+
+function payment_method1() {
+    layer.open({
+        title: '提示'
+        ,content: '该种支付暂未开启'
+    });
+}
+
+function payment_method2() {
+    layer.open({
+        title: '提示'
+        ,content: '该种支付暂未开启'
+    });
+}
 </script>

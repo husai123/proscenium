@@ -1,5 +1,6 @@
 package org.java.service;
 
+import org.java.pojo.Customer_Certificates;
 import org.java.util.InquiryOrder;
 import org.java.util.PageResult;
 
@@ -17,4 +18,10 @@ public interface OrderService {
     public InquiryOrder seedetailed(String orderId);
 
     public void close_transaction(String order_id);
+
+    public void savedata(Customer_Certificates customer_certificates);
+
+    public Customer_Certificates perfect_information(String order_id);
+
+    public void updateOrderStatus(String order_id);
 }
